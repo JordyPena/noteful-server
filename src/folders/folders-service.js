@@ -11,7 +11,7 @@ const FoldersService = {
       .into('folders')
       .returning('*')
       .then(rows => {
-        rows[0]
+        return rows[0];
       });
   },
 };

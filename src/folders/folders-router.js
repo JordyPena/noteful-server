@@ -2,6 +2,7 @@ const express = require("express");
 const xss = require("xss");
 const FoldersService = require("./folders-service");
 
+
 const foldersRouter = express.Router();
 const jsonParser = express.json();
 
@@ -32,7 +33,7 @@ foldersRouter
 
     FoldersService.addFolder(req.app.get("db"), newFolder)
       .then((folder) => {
-        res.status(201).send(folder);
+        res.status(201).json(folder);
       })
       .catch(next);
   });

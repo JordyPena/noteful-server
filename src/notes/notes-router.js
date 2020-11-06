@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const xxs = require("xss");
 const NotesService = require("./notes-service");
+const logger = require("../logger")
 
 const notesRouter = express.Router();
 const jsonParser = express.json();
@@ -36,10 +37,11 @@ notesRouter
 
   .all((req, res, next) => {
     const { note_id } = req.params;
+    console.log("line 39", note_id)
     NotesService.getById(req.app.get("db"), note_id)
       .then((note) => {
         if (!note) {
-          logger.error(`Bookmark with id ${note_id} not found.`);
+          logger.error(`Note with id ${note_id} not found.`);
           return res.status(404).json({
             error: { message: `Note Not Found` },
           });
@@ -57,9 +59,11 @@ notesRouter
 
   .delete((req, res, next) => {
     const { note_id } = req.params;
+    console.log("line 61", note_id)
     NotesService.deleteNote(req.app.get("db"), note_id)
       .then((numberOfAffectedRows) => {
-        logger.info(`Bookmark with id ${note_id} deleted.`);
+        console.log("line 64", numberOfAffectedRows)
+        logger.info(`Note with id ${note_id} deleted.`);
         res.status(204).end();
       })
       .catch(next);
