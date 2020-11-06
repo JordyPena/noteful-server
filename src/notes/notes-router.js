@@ -66,6 +66,3 @@ notesRouter
   });
 
 module.exports = notesRouter;
-// base endpoint get all notes amd post a new one
-
-// endpoint to delete notes with id
